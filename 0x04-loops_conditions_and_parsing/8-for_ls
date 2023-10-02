@@ -5,5 +5,5 @@
 #   Where only the part of the name after the first dash is displayed
 for entry in *
 do
-    echo $entry
+    echo "$entry"
 done
