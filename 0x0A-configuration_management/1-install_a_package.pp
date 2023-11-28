@@ -1,5 +1,16 @@
 #  install flask from pip3 using puppet
-package{'flask':
-    ensure   => '2.1.0',
-    provider => 'pip3',
+# Define a class for installing Flask
+class install_flask {
+  package { 'python3-pip':
+    ensure => installed,
+  }
+
+  exec { 'install_flask':
+    command => '/usr/bin/pip3 install Flask',
+    path    => ['/usr/bin'],
+    require => Package['python3-pip'],
+  }
 }
+
+# Include the class in the main manifest
+include install_flask
