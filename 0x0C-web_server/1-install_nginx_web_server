@@ -1,1 +1,7 @@
 #!/usr/bin/env bash
+# install nginx in the server and create a file with Hello World! 
+# nginx should be listening to port 80
+apt-get -y update
+apt-get -y nginx
+chown -R "$USER":"$USER" /var/www/html/
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
