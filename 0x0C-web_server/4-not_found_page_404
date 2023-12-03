@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# The page must return an HTTP 404 error code
+# update nginx configuration using sed
+apt-get -y update
+apt-get -y install nginx
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+mystr="\n\terror_page 404 \/404.html\;\n\tlocation = \/404.html \{\n\t\troot \/var\/www\/html\; \n\t\tinternal\;\n\t\}"
+replace="server {"
+sed -i "0,/$replace/{s/$replace/$replace$mystr/}" /etc/nginx/sites-available/default
+service nginx start
