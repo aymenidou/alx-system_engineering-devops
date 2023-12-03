@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# The redirection must be a “301 Moved Permanently”
+# update nginx configuration using sed
+mystr="\n\tlocation = \/redirect_me \{\n\t\treturn 301 https:\/\/www.youtube.com\/watch\?v=QH2-TGUlwu4 \; \n\t\}"
+replace="server {"
+sed -i "0,/$replace/{s/$replace/$replace$mystr/}" /etc/nginx/sites-available/default
+service nginx start
