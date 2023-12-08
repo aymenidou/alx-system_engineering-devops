@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # debug an nginx server not responding to port 80
-sed -i "{s/8080 default_server/80 default_server/}" /etc/nginx/sites-available/default
+sed -i "{s/8080 default_server/80 default_server/}" /etc/nginx/sites-enabled/default
 service nginx start
 rm /var/run/nginx.pid
