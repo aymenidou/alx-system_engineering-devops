@@ -3,4 +3,5 @@
 mystr="80 default_server\;"
 replace="8080 default_server\;"
 sed -i "{s/$replace/$mystr/}" /etc/nginx/sites-available/default
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 service nginx start
