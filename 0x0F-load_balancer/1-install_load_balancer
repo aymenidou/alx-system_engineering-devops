@@ -6,6 +6,6 @@ apt-get -y update
 apt-get install -y haproxy
 
 cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.backup
-sed -i "$ a frontend web\n\tbind *:80\n\tmode http\n\tdefault_backend webservers\n\nbackend webservers\n\tmode http\n\tbalance roundrobin\n\tserver 343426-web-01 54.236.49.164:80 check\n\tserver 343426-web-02 52.86.203.42:80 check" /etc/haproxy/haproxy.cfg
+sed -i "$ a frontend web\n\tbind *:80\n\tmode http\n\tdefault_backend webservers\n\nbackend webservers\n\tmode http\n\tbalance roundrobin\n\tserver 343426-web-01 54.165.132.79:80 check\n\tserver 343426-web-02 34.239.254.105:80 check" /etc/haproxy/haproxy.cfg
 
 service haproxy restart
