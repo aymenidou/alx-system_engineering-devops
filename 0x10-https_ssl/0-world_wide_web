@@ -5,7 +5,7 @@ getSubdomaininfo () {
 if [ $# -eq 2 ]
 then
     subdomain="$2"
-    dig $2.$1 | grep -A1 'ANSWER SECTION:' | tail -1 | awk '{print "The subdomain '$sub' is a "$4" record and points to "$NF""}'
+    dig $2.$1 | grep -A1 'ANSWER SECTION:' | tail -1 | awk '{print "The subdomain '$subdomain' is a "$4" record and points to "$NF""}'
 
 elif [ $# -eq 1 ]
 then
