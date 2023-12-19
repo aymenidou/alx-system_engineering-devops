@@ -11,6 +11,7 @@ global
         # Default SSL material locations
         ca-base /etc/ssl/certs
         crt-base /etc/ssl/private
+        tune.ssl.default-dh-param 2048
 
         # See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
         ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
@@ -33,6 +34,26 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
+#frontend www-https
+        #bind *:443 ssl crt /etc/letsencrypt/live/www.secretsoftech.tech/fullchain.pem
+        #reqadd X-Forwarded-Proto:\ https
+        #default_backend webservers
+
+
+#frontend www-http
+#       bind *:80
+#       reaqdd X-Forwarded-Proto:\ http
+#       default_backend webservers
+
+#backend webservers
+#       mode http
+#       balance roundrobin
+#       server 343426-web-01 54.165.132.79:80 check
+#       server 343426-web-02 34.239.254.105:80 check
+
+#backend letsencrypt-backend
+#       server letsencrypt 127.0.0.1:54321
+
 #frontend web
  #       bind *:80
  #       mode http
@@ -50,7 +71,8 @@ defaults
         default_backend www-backend
 
 frontend www-https
-        bind *:443 ssl crt /etc/letsencrypt/live/www.secretsoftech.tech/fullchain.pem
+        # i copied fullchain.pem and privkey.pem to domain.pem
+        bind *:443 ssl crt /etc/letsencrypt/live/www.secretsoftech.tech/domain.pem
         reqadd X-Forwarded-Proto:\ https
         acl letsencrypt-acl path_beg /.well-known/acme-challenge/
         use_backend letsencrypt-backend if letsencrypt-acl
