@@ -17,10 +17,10 @@ if __name__ == '__main__':
     for todo in todos_response:
         if (todo.get('userId') == int(sys.argv[1])):
             tasks += 1
-            if (todo.get('completed') == True):
+            if (todo.get('completed') is True):
                 completed_tasks += 1
                 task_desk.append(todo.get('title'))
     print("Employee {} is done with tasks ({}/{}):".format(username,
           completed_tasks, tasks))
     for i in task_desk:
-        print("\t {}".format(i))
+        print("\t{}".format(i))
