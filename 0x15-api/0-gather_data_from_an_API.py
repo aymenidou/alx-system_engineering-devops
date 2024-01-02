@@ -23,4 +23,4 @@ if __name__ == '__main__':
     print("Employee {} is done with tasks ({}/{}):".format(username,
           completed_tasks, tasks))
     for i in task_desk:
-        print("\t{}".format(i))
+        print("\t {}".format(i))
