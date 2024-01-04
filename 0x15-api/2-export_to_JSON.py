@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """ gather data from an API """
+import json
 import requests
 import sys
-import json
 
 if __name__ == '__main__':
     url_users = "https://jsonplaceholder.typicode.com/users/{}".format(
