@@ -2,7 +2,7 @@
 import requests
 
 
-def get_subreddit_subscribers(subreddit):
+def number_of_subscribers(subreddit):
     if subreddit is None or type(subreddit) is not str:
         return 0
     url = f'https://www.reddit.com/r/{subreddit}/about.json'
