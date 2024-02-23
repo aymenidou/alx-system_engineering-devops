@@ -1,15 +1,26 @@
 #!/usr/bin/python3
 """module fetching data from reddit api"""
-import requests
+from requests import get
 
 
 def number_of_subscribers(subreddit):
     """fetch subressit subscribers"""
-    if subreddit is None or type(subreddit) is not str:
-        return 0
+
     url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
     headers = {'User-Agent': 'custom_user_agent'}
 
-    data = requests.get(url, headers=headers, allow_redirects=False).json()
-    subscribers = data.get('data', {}).get('subscribers', 0)
-    return subscribers
+    res = get(url, headers=headers, allow_redirects=False)
+    if res.status_code != 200:
+        return 0
+    try:
+        js = res.json()
+    except ValueError:
+        return 0
+
+    data = js.get("data")
+    if data:
+        sub_count = data.get("subscribers")
+        if sub_count:
+            return sub_count
+    # subscribers = data.get('data', {}).get('subscribers', 0)
+    return 0
