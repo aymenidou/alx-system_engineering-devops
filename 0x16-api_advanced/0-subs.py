@@ -7,15 +7,21 @@ def number_of_subscribers(subreddit):
     """fetch subressit subscribers"""
 
     url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
-    headers = {'User-Agent': 'custom_user_agent'}
+    headers = {'user-agent': 'custom_user_agent'}
+
+    res = get(url, headers=headers, allow_redirects=False)
+
+    if res.status_code != 200:
+        return 0
 
     try:
-        res = get(url, headers=headers, allow_redirects=False)
-        res.raise_for_status()
         js = res.json()
-        if js.get("data", {}).get("subscribers") is not None:
-            return js["data"]["subscribers"]
-        else:
-            return 0
     except ValueError:
         return 0
+    data = js.get("data")
+
+    if data:
+        sub_count = data.get("subscribers")
+        if sub_count:
+            return sub_count
+    return 0
