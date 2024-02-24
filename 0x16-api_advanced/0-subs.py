@@ -10,12 +10,11 @@ def number_of_subscribers(subreddit):
     headers = {'User-Agent': 'custom_user_agent'}
 
     try:
-        res = get(url, headers=headers)
-        if res.status_code == 200:
-            js = res.json()
-            data = js.get("data")
-            sub_count = data.get("subscribers")
-            return sub_count
+        res = get(url, headers=headers, allow_redirects=False)
+        res.raise_for_status()
+        js = res.json()
+        if js.get("data", {}).get("subscribers") is not None:
+            return js["data"]["subscribers"]
         else:
             return 0
     except ValueError:
